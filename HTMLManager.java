@@ -30,30 +30,35 @@ public class HTMLManager {
   
    public void fixHTML() {
    Stack<HTMLTag> stor = new Stack<HTMLTag>();
+   Queue<HTMLTag> fixed = new LinkedList<>();
    
-   for(HTMLTag tag: tags) {
-      
-      if(tag.isOpening()) {
-         stor.push(tag);
-         tags.add(tag);      
-      }
-      
-      else if(tag.isClosing()) {
-         if(tag.matches()) {
+   while(!tags.isEmpty) {
+   
+      for(HTMLTag tag: tags) {
+         
+         if(tag.isOpening()) {
             stor.push(tag);
-            tags.add(tag);
+            fixed.add(tag);      
          }
          
-        }
-         else if(!tag.matches()) {
-            stor.push(tags.getMatching(tag));
-            tags.remove(tag);
-            tags.add(tag);
-         }
+         else if(tag.isClosing()) {
+            if(tag.matches(HTMLTag tag)) {
+               stor.push(tag);
+               tags.add(tag);
+            }
+            
+           }
+            else if(!tag.matches()) {
+               stor.push(tags.getMatching(tag));
+               tags.remove(tag);
+               tags.add(tag);
+            }
+      }
+      
+     }
+     
    }
-   
-  }
-    
+  
 }
 
 
