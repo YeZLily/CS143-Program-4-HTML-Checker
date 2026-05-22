@@ -33,31 +33,28 @@ public class HTMLManager {
    Queue<HTMLTag> fixed = new LinkedList<>();
    
    while(!tags.isEmpty) {
-   
-      for(HTMLTag tag: tags) {
-         
-         if(tag.isOpening()) {
-            stor.push(tag);
-            fixed.add(tag);      
-         }
-         
-         else if(tag.isClosing()) {
-            if(tag.matches(stor.peek())) {
-               stor.push(tag);
-               tags.add(tag);
-            }
-            
-           }
-            else if(!tag.matches(stor.peek())) {
-               stor.push(tag.getMatching());
-               tags.remove(tag);
-               tags.add(tag);
-            }
-      }
-      
-     }
+   HTMLTag tag = tags.remove();   
+     if(tag.isClosing()) {
+       fixed.add(tag);
+     } else if(tag.isOpening()) {
+       stor.push(tag);
+       fixed.add(tag);
+     } else if(tag.matches(stor.peek())) {
+           stor.push(tag);
+           tags.add(tag);
+        }
+        
+       }
+        else if(!tag.matches(stor.peek())) {
+           stor.push(tag.getMatching());
+           tags.remove(tag);
+           tags.add(tag);
+        }
+  }
+  
+ }
      
-   }
+}
   
 }
 
