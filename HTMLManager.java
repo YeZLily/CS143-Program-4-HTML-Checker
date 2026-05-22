@@ -16,4 +16,15 @@ public class HTMLManager {
     return tags;
   }
   
+  public void fixHTML() {
+   Stack<String> stor = new Stack<>();
+   
+   for(HTMLTag tag: tags) {
+      
+      if(tags.isOpening()) {
+         stor.push(tag);      
+   }
+   
+  }
+    
 }
