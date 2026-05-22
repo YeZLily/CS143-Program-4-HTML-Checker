@@ -42,14 +42,14 @@ public class HTMLManager {
          }
          
          else if(tag.isClosing()) {
-            if(tag.matches(HTMLTag tag)) {
+            if(tag.matches(stor.peek())) {
                stor.push(tag);
                tags.add(tag);
             }
             
            }
-            else if(!tag.matches()) {
-               stor.push(tags.getMatching(tag));
+            else if(!tag.matches(stor.peek())) {
+               stor.push(tag.getMatching());
                tags.remove(tag);
                tags.add(tag);
             }
