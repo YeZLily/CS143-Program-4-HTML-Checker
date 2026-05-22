@@ -16,13 +16,28 @@ public class HTMLManager {
     return tags;
   }
   
-  public void fixHTML() {
-   Stack<String> stor = new Stack<>();
+   public void fixHTML() {
+   Stack<HTMLTag> stor = new Stack<HTMLTag>();
    
    for(HTMLTag tag: tags) {
       
-      if(tags.isOpening()) {
-         stor.push(tag);      
+      if(tag.isOpening()) {
+         stor.push(tag);
+         tags.add(tag);      
+      }
+      
+      else if(tag.isClosing()) {
+         if(tag.matches()) {
+            stor.push(tag);
+            tags.add(tag);
+         }
+         
+        }
+         else if(!tag.matches()) {
+            stor.push(tags.getMatching(tag));
+            tags.remove(tag);
+            tags.add(tag);
+         }
    }
    
   }
