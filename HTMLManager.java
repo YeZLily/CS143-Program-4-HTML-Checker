@@ -66,6 +66,9 @@ public class HTMLManager {
               }
            }
        }
+       while (!stor.isEmpty()) {
+        fixed.add(stor.pop().getMatching());
+       }
        tags = fixed;
     }
 }
