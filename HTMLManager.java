@@ -24,8 +24,11 @@ public class HTMLManager {
     for(int i = 0; i < size; i++) { 
       HTMLTag tag = tags.remove();
       result += tag.toString().trim();
+
+      tags.add(tag);
       
     }
+    return result;
   }
   
   public void fixHTML() {
