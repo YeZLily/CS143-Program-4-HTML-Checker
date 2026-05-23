@@ -28,33 +28,35 @@ public class HTMLManager {
     }
   }
   
-   public void fixHTML() {
+  public void fixHTML() {
    Stack<HTMLTag> stor = new Stack<HTMLTag>();
    Queue<HTMLTag> fixed = new LinkedList<>();
    
-   while(!tags.isEmpty) {
-   HTMLTag tag = tags.remove();   
-     if(tag.isClosing()) {
-       fixed.add(tag);
-     } else if(tag.isOpening()) {
-       stor.push(tag);
-       fixed.add(tag);
-     } else if(tag.matches(stor.peek())) {
-           stor.push(tag);
-           tags.add(tag);
+   while(!tags.isEmpty()) {
+         HTMLTag tag = tags.remove();
+         
+         if(tag.isSelfClosing()) {
+            fixed.add(tag);
+            
+         } else if(tag.isOpening()) {
+            stor.push(tag);
+            fixed.add(tag);
+         
+         } else if(tag.isClosing()) {
+               if(stor.isEmpty()) {
+               
+               } else if(tag.matches(stor.peek())) {
+                  fixed.add(tag);
+                  stor.pop();
+
+                                 
+               } else if(!tag.matches(stor.peek())) {
+                  fixed.add(stor.pop().getMatching());
+               }
+           }
         }
-        
-       }
-        else if(!tag.matches(stor.peek())) {
-           stor.push(tag.getMatching());
-           tags.remove(tag);
-           tags.add(tag);
-        }
-  }
-  
- }
-     
-}
+        tags = fixed;
+    }
   
 }
 
