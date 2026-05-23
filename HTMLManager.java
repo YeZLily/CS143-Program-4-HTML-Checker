@@ -36,28 +36,39 @@ public class HTMLManager {
          HTMLTag tag = tags.remove();
          
          if(tag.isSelfClosing()) {
-            fixed.add(tag);
-            
-         } else if(tag.isOpening()) {
+            fixed.add(tag);  
+         } 
+         
+         else if(tag.isOpening()) {
             stor.push(tag);
             fixed.add(tag);
          
-         } else if(tag.isClosing()) {
-               if(stor.isEmpty()) {
-               
-               } else if(tag.matches(stor.peek())) {
+         }
+          
+         else if(tag.isClosing()) {
+              if (stor.isEmpty()) {
+              
+              } 
+              else if(tag.matches(stor.peek())) {
                   fixed.add(tag);
                   stor.pop();
-
-                                 
-               } else if(!tag.matches(stor.peek())) {
-                  fixed.add(stor.pop().getMatching());
-               }
+                  
+              } 
+              else {
+                  while (!stor.isEmpty() && !tag.matches(stor.peek())) {
+                    fixed.add(stor.pop().getMatching());
+                  }
+                  
+                  if (!stor.isEmpty()) {
+                     fixed.add(tag);
+                     stor.pop();
+                 }
+              }
            }
-        }
-        tags = fixed;
+       }
+       tags = fixed;
     }
-  
 }
+
 
 
